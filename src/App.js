@@ -1,27 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { MOCK } from './Mock';
+import { Container } from 'reactstrap';
+import RecipeDetails from './RecipeDetails'
 
 class App extends Component {
+state = {
+  recipe: MOCK
+}
+
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+    return (MOCK.map(recipe => {
+      return <Container><RecipeDetails recipe={recipe}></RecipeDetails></Container>
+    }))    
   }
 }
 
