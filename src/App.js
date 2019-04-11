@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import { MOCK } from './Mock';
+import RecipeList  from './Container/RecipeList';
 import { Container, Button } from 'reactstrap';
-import RecipeDetails from './RecipeDetails'
+import RecipeDetails from './Component/RecipeDetails'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
@@ -36,26 +37,7 @@ class App extends Component {
     }
 
     render() {
-      return (
-      <Container>
-          
-      {this.state.addMode
-        ? <RecipeDetails onAdd={this.add} onDelete={() => this.toggleAddMode}></RecipeDetails>
-        : <Button color="primary" onClick={this.toggleAddMode}><FontAwesomeIcon icon={faPlus} /></Button>
-      }
-      
-      { 
-        this.state.recipes.map(recipe => {
-          return (
-            
-              <RecipeDetails key={recipe.id} recipe={recipe} onDelete={this.delete}></RecipeDetails>
-            
-          )
-        }) 
-      } 
-
-      </Container>
-      )
+      return <RecipeList></RecipeList>
     }
 }
 
