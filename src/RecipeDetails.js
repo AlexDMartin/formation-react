@@ -5,11 +5,14 @@ import { faTimes, faPen, faEye } from '@fortawesome/free-solid-svg-icons'
 
 class RecipeDetails extends Component {
     state = {
-        recipe: this.props.recipe,
-        editMode: false
+        recipe: this.props.recipe || {},
+        editMode: !this.props.recipe || false 
     }
 
-    toggleEditMode = (event) => this.setState({editMode: !this.state.editMode})
+    toggleEditMode = (event) => {
+        console.debug('Switched to toggle mode');
+        this.setState({editMode: !this.state.editMode});
+    }
 
     onChangePicture = (event) => {
         console.debug('Picture changed');
@@ -44,34 +47,49 @@ class RecipeDetails extends Component {
         
         return (
             <Container>
-              <Row>
-                <Col md={{size: 4, offset:4}}>
-                <div>
-                  <Card>
-                      {this.state.editMode && <Input value={recipe.picture} onChange={this.onChangePicture}/>}
-                    <CardImg top width="100%" src={recipe.picture} alt="Recipe Image" />
-                    <CardBody>
+                <Row>
+                    <Col md={{size: 4, offset:4}}>
+                        <div>
+                        <Card>
 
-                    {this.state.editMode
-                        ? <Input onChange={this.onChangeName} value={recipe.name}/>
-                        : <CardTitle>{recipe.name}</CardTitle>
-                    }
+                            {this.state.editMode 
+                            ? <Input value={recipe.picture} onChange={this.onChangePicture}/>
+                            : <CardImg top width="100%" src={recipe.picture} alt="Recipe Image" />
+                            }
+                            
+                            <CardBody>
 
-                    {this.state.editMode
-                        ? <textarea onChange={this.onChangeDescription} value={recipe.description}/>
-                        : <CardText>{recipe.description}</CardText>
-                    } 
-                     
-                      <ButtonGroup>
-                        <Button color="primary" onClick={this.toggleEditMode}><FontAwesomeIcon icon={faPen}/></Button>
-                        <Button color="primary"><FontAwesomeIcon icon={faEye}/></Button>
-                        <Button color="danger" onClick={this.props.onDelete(recipe)}><FontAwesomeIcon icon={faTimes}/></Button>
-                      </ButtonGroup>
-                    </CardBody>
-                  </Card>
-                </div>
-                </Col>
-              </Row>  
+                                {this.state.editMode
+                                    ? <Input onChange={this.onChangeName} value={recipe.name}/>
+                                    : <CardTitle>{recipe.name}</CardTitle>
+                                }
+
+                                {this.state.editMode
+                                    ? <textarea onChange={this.onChangeDescription} value={recipe.description}/>
+                                    : <CardText>{recipe.description}</CardText>
+                                } 
+
+                                <ButtonGroup>
+                                    {
+                                        !this.props.recipe && <Button color="primary" onClick={this.props.onAdd(recipe)}><FontAwesomeIcon icon={faPen}/></Button>  
+                                    }
+
+                                    {
+                                        this.props.recipe && <Button color="primary" onClick={this.toggleEditMode}><FontAwesomeIcon icon={faPen}/></Button>
+                                    }
+                                    
+                                    {
+                                        this.props.recipe && <Button color="primary"><FontAwesomeIcon icon={faEye}/></Button>
+                                    }
+                                    
+                                    <Button color="danger" onClick={this.props.onDelete(recipe)}><FontAwesomeIcon icon={faTimes}/></Button>
+                                </ButtonGroup>
+
+                            </CardBody>
+                        </Card>
+                        </div>
+                    </Col>
+                </Row>  
             </Container>
           )  
     }
