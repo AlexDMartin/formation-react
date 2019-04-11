@@ -6,12 +6,22 @@ import RecipeDetails from './RecipeDetails'
 
 class App extends Component {
 state = {
-  recipe: MOCK
+  recipes: MOCK
+}
+
+delete = recipe => () => {
+  let newRecipes = this.state.recipes.filter(
+    item => recipe.id !== item.id
+  );
+
+  this.setState({
+    recipes: newRecipes
+  })
 }
 
   render() {
-    return (MOCK.map(recipe => {
-      return <Container><RecipeDetails recipe={recipe}></RecipeDetails></Container>
+    return (this.state.recipes.map(recipe => {
+      return <Container><RecipeDetails key={recipe.id} recipe={recipe} onDelete={this.delete}></RecipeDetails></Container>
     }))    
   }
 }

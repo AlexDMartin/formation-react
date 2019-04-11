@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardTitle, CardBody, CardSubtitle, CardText, CardImg, Button, Row, Col, ButtonGroup } from 'reactstrap';
+import { Card, CardTitle, CardBody, CardSubtitle, CardText, CardImg, Button, Row, Col, ButtonGroup, Container } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faPen, faEye } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,6 +13,7 @@ class RecipeDetails extends Component {
         let {recipe} = this.state;
         
         return (
+            <Container>
               <Row>
                 <Col md={{size: 4, offset:4}}>
                 <div>
@@ -25,13 +26,14 @@ class RecipeDetails extends Component {
                       <ButtonGroup>
                         <Button color="primary"><FontAwesomeIcon icon={faPen}/></Button>
                         <Button color="primary"><FontAwesomeIcon icon={faEye}/></Button>
-                        <Button color="danger"><FontAwesomeIcon icon={faTimes}/></Button>
+                        <Button color="danger" onClick={this.props.onDelete(recipe)}><FontAwesomeIcon icon={faTimes}/></Button>
                       </ButtonGroup>
                     </CardBody>
                   </Card>
                 </div>
                 </Col>
               </Row>  
+            </Container>
           )  
     }
   }
