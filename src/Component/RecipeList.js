@@ -1,39 +1,38 @@
 import React, { Component } from 'react';
 import { Container, Button } from 'reactstrap';
-import { MOCK } from '../Mock';
-import RecipeDetails from '../Component/RecipeDetails'
+import RecipeDetails from './RecipeDetails'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 class RecipeList extends Component{
 
     state = {
-        recipes: MOCK,
-        addMode: false
-      }
-  
-      toggleAddMode = (event) => {
-        console.debug('Switched addMode');
-        this.setState({addMode: !this.state.addMode});
-      } 
-  
-      add = recipe => () => {
-        console.debug('Addition triggered');
-        recipe.id = Math.random(80, 160);
-        this.state.recipes.push(recipe);
-        this.toggleAddMode();
-      }
-  
-      delete = recipe => () => {
-        console.debug('Deletion triggered');
-        let newRecipes = this.state.recipes.filter(
-          item => recipe.id !== item.id
-        );
-  
-        this.setState({
-          recipes: newRecipes
-        })
-      }
+      recipes: this.props.recipes,
+      addMode: false
+    }
+
+    toggleAddMode = (event) => {
+      console.debug('Switched addMode')
+      this.setState({addMode: !this.state.addMode})
+    } 
+
+    add = recipe => () => {
+      console.debug('Addition triggered')
+      recipe.id = Math.random(80, 160)
+      this.state.recipes.push(recipe)
+      this.toggleAddMode()
+    }
+
+    delete = recipe => () => {
+      console.debug('Deletion triggered')
+      let newRecipes = this.state.recipes.filter(
+        item => recipe.id !== item.id
+      )
+
+      this.setState({
+        recipes: newRecipes
+      })
+    }
 
     render() {
         return (

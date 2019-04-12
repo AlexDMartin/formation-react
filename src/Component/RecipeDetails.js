@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faPen, faEye } from '@fortawesome/free-solid-svg-icons'
 
 class RecipeDetails extends Component {
+    
     state = {
         recipe: this.props.recipe || {},
         editMode: !this.props.recipe || false 
     }
 
     toggleEditMode = (event) => {
-        console.debug('Switched to toggle mode');
+        console.debug('Switched editMode');
         this.setState({editMode: !this.state.editMode});
     }
 
@@ -50,7 +51,7 @@ class RecipeDetails extends Component {
                 <Row>
                     <Col md={{size: 4, offset:4}}>
                         <div>
-                        <Card>
+                        <Card> 
 
                             {this.state.editMode 
                             ? <Input value={recipe.picture} onChange={this.onChangePicture}/>
